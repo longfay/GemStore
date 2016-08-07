@@ -1,0 +1,53 @@
+			<section>
+				<ul class="nav">
+					<li ng-class="{active:panel.isSelected(1)}" class="tab">
+						<a href ng-click="panel.selectTab(1)">Description</a>
+					</li>
+					<li ng-class="{active:panel.isSelected(2)}" class="tab">
+						<a href ng-click="panel.selectTab(2)">Specifications</a>
+					</li>
+					<li ng-class="{active:panel.isSelected(3)}" class="tab">
+						<a href ng-click="panel.selectTab(3)">Reviews</a>
+					</li>
+				</ul>
+				<div class="panel" ng-show="panel.isSelected(1)">
+					<h4 class="bold-text">Description</h4>
+					<p>{{product.description}}</p>
+				</div>
+				<div class="panel" ng-show="panel.isSelected(2)">
+					<h4 class="bold-text">Specification</h4>
+					<p>{{"Shine: "+product.shine}}</p>
+					<p>{{"Faces: "+product.faces}}</p>
+					<p>{{"Rarity: "+product.rarity}}</p>
+					<p>{{"Color: "+product.color}}</p>
+				</div>
+				<div class="panel" ng-show="panel.isSelected(3)">
+					<h4 class="bold-text">Reviews</h4>
+					<blockquote ng-repeat="review in product.reviews">
+						<b>Stars: {{review.stars}}</b>
+						{{review.body}} <br />
+						<cite>by: {{review.author}}</cite>
+					</blockquote>
+						<form name="reviewForm" ng-controller="ReviewController as reviewCtrl" ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)" novalidate>
+							<blockquote>
+								<b>Stars: {{reviewCtrl.review.stars}}</b>
+								{{reviewCtrl.review.body}}
+								<cite>by: {{reviewCtrl.review.author}}</cite>
+							</blockquote>
+							<select class="select-star" ng-model="reviewCtrl.review.stars" required>
+								<option value="1">1 star</option>
+								<option value="2">2 star</option>
+								<option value="3">3 star</option>
+								<option value="4">4 star</option>
+								<option value="5">5 star</option>
+							</select>
+							<textarea class="text-area" ng-model="reviewCtrl.review.body" required></textarea>
+							<label>by:</label>
+							<input ng-model="reviewCtrl.review.author" class="email-address" type="email" required />
+							<div> reviewForm is {{reviewForm.$valid}} </div>
+							<div class="submit">
+								<input type="submit" name="Submit" />
+							</div>
+					</form>
+				</div>
+			</section>
